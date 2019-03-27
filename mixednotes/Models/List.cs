@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
 
 namespace Models
 {
@@ -12,5 +11,6 @@ namespace Models
         public bool IsDeleted { get; set; }
 
         public ICollection<Task> Tasks { get; set; }
+
     }
 }

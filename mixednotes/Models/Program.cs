@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models
 {
@@ -14,17 +10,22 @@ namespace Models
             {
                 try
                 {
-                    Console.WriteLine("We are live");
+                    Console.WriteLine("Connecting to MySQL...");
+                    db.Database.Connection.Open();
 
-                    db.Notes.Add(new Note());
+                    var note = new Note();
+                    note.Content = "asdad";
 
+                    db.Notes.Add(note);
                     db.SaveChanges();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-
-                    Console.WriteLine(e.ToString());
+                    Console.WriteLine(ex.ToString());
                 }
+
+                db.Database.Connection.Close();
+                Console.WriteLine("Done.");
             }
         }
     }

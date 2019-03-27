@@ -1,7 +1,9 @@
-﻿using System.Data.Entity;
+﻿using MySql.Data.Entity;
+using System.Data.Entity;
 
 namespace Models
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class MixedNotesDbContext : DbContext
     {
         public MixedNotesDbContext()
