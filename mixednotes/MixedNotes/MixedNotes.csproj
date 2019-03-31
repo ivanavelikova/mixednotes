@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{317D74C2-D3B8-4D0A-8359-838146581C3F}</ProjectGuid>
+    <ProjectGuid>{6A95715B-BEF7-495C-B518-8A85DCD001F9}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Models</RootNamespace>
-    <AssemblyName>Models</AssemblyName>
+    <RootNamespace>MixedNotes</RootNamespace>
+    <AssemblyName>MixedNotes</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -54,6 +54,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -64,28 +65,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="List.cs" />
-    <Compile Include="Migrations\201903271456092_AddModelsProperties.cs" />
-    <Compile Include="Migrations\201903271456092_AddModelsProperties.Designer.cs">
-      <DependentUpon>201903271456092_AddModelsProperties.cs</DependentUpon>
+    <Compile Include="list.cs">
+      <DependentUpon>MixedNotesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MixedNotesDbContext.cs" />
-    <Compile Include="Note.cs" />
+    <Compile Include="MixedNotesModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MixedNotesModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MixedNotesModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MixedNotesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MixedNotesModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MixedNotesModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="note.cs">
+      <DependentUpon>MixedNotesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Task.cs" />
+    <Compile Include="task.cs">
+      <DependentUpon>MixedNotesModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
+    <None Include="App.config" />
+    <EntityDeploy Include="MixedNotesModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MixedNotesModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MixedNotesModel.edmx.diagram">
+      <DependentUpon>MixedNotesModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903271456092_AddModelsProperties.resx">
-      <DependentUpon>201903271456092_AddModelsProperties.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Database Creation Script.sql" />
+    <Content Include="MixedNotesModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MixedNotesModel.edmx</DependentUpon>
+      <LastGenOutput>MixedNotesModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MixedNotesModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MixedNotesModel.edmx</DependentUpon>
+      <LastGenOutput>MixedNotesModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
