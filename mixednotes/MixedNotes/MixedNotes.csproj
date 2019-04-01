@@ -97,6 +97,7 @@
     <Compile Include="task.cs">
       <DependentUpon>MixedNotesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConsoleView.cs" />
     <Compile Include="Views\ListView.cs" />
     <Compile Include="Views\NoteView.cs" />
     <Compile Include="Views\TaskView.cs" />
