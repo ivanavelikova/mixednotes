@@ -9,10 +9,13 @@ namespace MixedNotes.Controllers
     public class NoteController
     {
         private NoteView NoteView;
+        private mixednotesdbEntities MixedNotesDbEntities;
 
-        public NoteController(mixednotesdbEntities MixedNotesDbEntities)
+        public NoteController(mixednotesdbEntities context)
         {
             NoteView = new NoteView();
+            MixedNotesDbEntities = context;
+            
 
             int menuOption = NoteView.SelectNoteMenu();
 
