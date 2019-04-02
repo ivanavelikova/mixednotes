@@ -2,24 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using MixedNotes.Views;
 
 namespace MixedNotes.Controllers
 {
     public class NoteController
     {
-        public mixednotesdbEntities MixedNotesDbEntities { get; }
+        private NoteView NoteView;
 
-        public NoteController(mixednotesdbEntities mixedNotesDbEntities)
+        public NoteController(mixednotesdbEntities MixedNotesDbEntities)
         {
-            MixedNotesDbEntities = mixedNotesDbEntities;
+            NoteView = new NoteView();
+
+            int menuOption = NoteView.SelectNoteMenu();
+
+            switch (menuOption)
+            {
+                case 1:
+                    NoteView.PrintAllNotes(GetAllNotes());
+                    break;
+                case 2:
+                    NoteView.GetNoteValues();
+                    AddNote();
+                    break;
+                case 3:
+                    break;
+            }
+
         }
 
         /// <summary>
         /// Adds the note in the db
         /// </summary>
         /// <param name="note"></param>
-        public void AddNote(note note)
+        public void AddNote()
         {
+            note note = new note();
+            note.content = NoteView.Content;
             MixedNotesDbEntities.notes.Add(note);
             MixedNotesDbEntities.SaveChanges();
         }

@@ -12,7 +12,8 @@ namespace MixedNotes
     {
         static void Main(string[] args)
         {
-
+            MetaController metaController = new MetaController();
+            Environment.Exit(metaController.LogicLoop());
         }
     }
 }

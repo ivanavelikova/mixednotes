@@ -8,5 +8,9 @@ namespace MixedNotes.Views
 {
     public class ListView
     {
+        public void GetValues()
+        {
+
+        }
     }
 }
