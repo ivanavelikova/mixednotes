@@ -2,24 +2,71 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using MixedNotes.Views;
 
 namespace MixedNotes.Controllers
 {
     public class ListController
     {
-        public mixednotesdbEntities MixedNotesDbEntities { get; }
+        private ListView listView;
+        private MetaView metaView;
+        private mixednotesdbEntities MixedNotesDbEntities;
 
-        public ListController(mixednotesdbEntities mixedNotesDbEntities)
+        public ListController(mixednotesdbEntities context)
         {
-            MixedNotesDbEntities = mixedNotesDbEntities;
+            listView = new ListView();
+            metaView = new MetaView();
+            MixedNotesDbEntities = context;
+        }
+
+        public void ListsOptions()
+        {
+            try
+            {
+                int listsMenuOptions = listView.SelectListMenu();
+
+                switch (listsMenuOptions)
+                {
+                    case 1:
+                        listView.PrintAllLists(GetAllLists());
+                        break;
+
+                    case 2:
+                        AddList();
+                        break;
+
+                    case 3:
+                        EditList();
+                        break;
+
+                    case 4:
+                        RemoveList();
+                        break;
+
+                    case 5:
+                        metaView.SelectMetaMenu();
+                        break;
+
+                    default:
+                        throw new InvalidOperationException("Invalid command!");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                ListsOptions();
+            }
         }
 
         /// <summary>
         /// Adds the list in the db
         /// </summary>
-        /// <param name="list"></param>
-        public void AddList(list list)
+        public void AddList()
         {
+            list list = new list();
+            list.title = listView.Title;
+            list.tasks = listView.Tasks;
+
             MixedNotesDbEntities.lists.Add(list);
             MixedNotesDbEntities.SaveChanges();
         }
@@ -27,20 +74,23 @@ namespace MixedNotes.Controllers
         /// <summary>
         /// Edits the list's content
         /// </summary>
-        public void EditList(list changedList)
+        public void EditList()
         {
-            list list = MixedNotesDbEntities.lists.Find(changedList.list_id);
+            list list = MixedNotesDbEntities.lists.Find();
 
-            MixedNotesDbEntities.Entry(list).CurrentValues.SetValues(changedList);
+            //MixedNotesDbEntities.Entry(list).CurrentValues.SetValues();
             MixedNotesDbEntities.SaveChanges();
         }
 
         /// <summary>
         /// Removes the list from the db
         /// </summary>
-        /// <param name="list"></param>
-        public void RemoveList(list list)
+        public void RemoveList()
         {
+            int id = listView.GetListById();
+
+            list list = MixedNotesDbEntities.lists.First(l => l.list_id == id);
+
             MixedNotesDbEntities.lists.Remove(list);
             MixedNotesDbEntities.SaveChanges();
         }

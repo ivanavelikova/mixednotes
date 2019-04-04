@@ -8,63 +8,155 @@ namespace MixedNotes.Controllers
 {
     public class NoteController
     {
-        private NoteView NoteView;
+        private NoteView noteView;
+        private MetaView metaView;
         private mixednotesdbEntities MixedNotesDbEntities;
 
         public NoteController(mixednotesdbEntities context)
         {
-            NoteView = new NoteView();
+            noteView = new NoteView();
+            metaView = new MetaView();
             MixedNotesDbEntities = context;
-            
+        }
 
-            int menuOption = NoteView.SelectNoteMenu();
-
-            switch (menuOption)
+        public void NotesOptions()
+        {
+            try
             {
-                case 1:
-                    NoteView.PrintAllNotes(GetAllNotes());
-                    break;
-                case 2:
-                    NoteView.GetNoteValues();
-                    AddNote();
-                    break;
-                case 3:
-                    break;
-            }
+                int notesMenuOption = noteView.SelectNotesMenu();
 
+                switch (notesMenuOption)
+                {
+                    case 1:
+                        noteView.PrintAllNotes(GetAllNotes());
+                        break;
+
+                    case 2:
+                        AddNote();
+                        break;
+
+                    case 3:
+                        EditNote();
+                        break;
+
+                    case 4:
+                        RemoveNote();
+                        break;
+
+                    case 5:
+                        metaView.SelectMetaMenu();
+                        break;
+
+                    default:
+                        throw new InvalidOperationException("Invalid command!");
+                }
+
+                if (notesMenuOption != 5)
+                {
+                    NotesOptions();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                NotesOptions();
+            }
         }
 
         /// <summary>
         /// Adds the note in the db
         /// </summary>
-        /// <param name="note"></param>
         public void AddNote()
         {
-            note note = new note();
-            note.content = NoteView.Content;
-            MixedNotesDbEntities.notes.Add(note);
-            MixedNotesDbEntities.SaveChanges();
+            try
+            {
+                note note = new note();
+
+                noteView.GetNoteValues();
+
+                note.content = noteView.Content;
+
+                if (note.content.ToString() == string.Empty)
+                {
+                    throw new InvalidOperationException("Note's content shouldn't be empty!");
+                }
+                else
+                {
+                    MixedNotesDbEntities.notes.Add(note);
+                    MixedNotesDbEntities.SaveChanges();
+
+                    Console.WriteLine("Note added successfully!");
+                }
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException("Note's content shouldn't be empty!");
+            }
         }
 
         /// <summary>
         /// Edits the note's content
         /// </summary>
-        public void EditNote(note changedNote)
+        public void EditNote()
         {
-            note note = MixedNotesDbEntities.notes.Find(changedNote.note_id);
+            try
+            {
+                note note = MixedNotesDbEntities.notes.Find(noteView.GetNoteById());
 
-            MixedNotesDbEntities.Entry(note).CurrentValues.SetValues(changedNote);
-            MixedNotesDbEntities.SaveChanges();
+                note newNote = new note();
+
+                newNote.content = noteView.GetNoteChangedContent(note.content);
+
+                note.content = newNote.content;
+
+                MixedNotesDbEntities.SaveChanges();
+
+                Console.WriteLine("Note's content changed successfully!");
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException("Note's content couldn't be edited!");
+            }
         }
 
         /// <summary>
         /// Removes the note from the db
         /// </summary>
-        /// <param name="note"></param>
-        public void RemoveNote(note note)
+        public void RemoveNote()
         {
-            MixedNotesDbEntities.notes.Remove(note);
-            MixedNotesDbEntities.SaveChanges();
+            int id = 0;
+
+            try
+            {
+                id = noteView.GetNoteById();
+
+                note note = MixedNotesDbEntities.notes.First(n => n.note_id == id);
+
+                MixedNotesDbEntities.notes.Remove(note);
+                MixedNotesDbEntities.SaveChanges();
+
+                Console.WriteLine($"Note removed successfully!");
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException($"Note with Id {id} doesn't exist!");
+            }
+        }
+        
+        public note GetNote()
+        {
+            int id = 0;
+
+            try
+            {
+                id = noteView.GetNoteById();
+
+                return MixedNotesDbEntities.notes.First(n => n.note_id == id);
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException($"Note with Id {id} doesn't exist!");
+            }
         }
 
         /// <summary>

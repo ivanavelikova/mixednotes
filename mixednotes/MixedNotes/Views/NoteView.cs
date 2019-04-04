@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MixedNotes.Views
 {
@@ -12,16 +13,46 @@ namespace MixedNotes.Views
 
         public NoteView()
         {
+
         }
 
-        public int SelectNoteMenu()
+        public int SelectNotesMenu()
         {
             Console.WriteLine("Notes");
             Console.WriteLine("1. View all notes");
             Console.WriteLine("2. Create new note");
-            Console.WriteLine("3. Go back");
+            Console.WriteLine("3. Edit note");
+            Console.WriteLine("4. Delete note");
+            Console.WriteLine("5. Go back");
 
-            return int.Parse(Console.ReadLine());
+            int menuOption = int.Parse(Console.ReadLine());
+
+            return menuOption;
+        }
+
+        public void GetNoteValues()
+        {
+            Console.WriteLine("Add note content:");
+            Content = Console.ReadLine();
+        }
+
+        public int GetNoteById()
+        {
+            Console.WriteLine("Enter note id:");
+
+            int id = int.Parse(Console.ReadLine());
+
+            return id;
+        }
+
+        public string GetNoteChangedContent(string content)
+        {
+            Console.WriteLine("Edit note's content:");
+            SendKeys.SendWait(content);
+
+            string changedContent = Console.ReadLine();
+
+            return changedContent;
         }
 
         public void PrintAllNotes(List<note> notes)
@@ -29,15 +60,9 @@ namespace MixedNotes.Views
             foreach (var note in notes)
             {
                 Console.WriteLine(new string('-', 20));
-                Console.WriteLine($"Note id: {note.note_id}");
+                Console.WriteLine($"#{note.note_id}");
                 Console.WriteLine($"{note.content}");
             }
-        }
-
-        public void GetNoteValues()
-        {
-            Console.WriteLine("Add note content");
-            Content = Console.ReadLine();
         }
     }
 }
