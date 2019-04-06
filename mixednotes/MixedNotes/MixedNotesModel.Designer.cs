@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Programming\Module 7 Group Project\MixedNotes\MixedNotes\MixedNotesModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Programming\Изпити\Exam 2019.03.07\MixedNotes\mixednotes\MixedNotes\MixedNotesModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

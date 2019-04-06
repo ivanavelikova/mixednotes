@@ -91,10 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ListController.cs" />
-    <Compile Include="Controllers\MetaController.cs" />
-    <Compile Include="Controllers\NoteController.cs" />
-    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\ListsController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="list.cs">
       <DependentUpon>MixedNotesModel.tt</DependentUpon>
     </Compile>
@@ -121,10 +120,7 @@
     <Compile Include="task.cs">
       <DependentUpon>MixedNotesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Views\ListView.cs" />
-    <Compile Include="Views\MetaView.cs" />
-    <Compile Include="Views\NoteView.cs" />
-    <Compile Include="Views\TaskView.cs" />
+    <Compile Include="View.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -140,7 +136,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database Creation Script.sql" />
+    <Content Include="mixednotesdbScript.sql" />
     <Content Include="MixedNotesModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MixedNotesModel.edmx</DependentUpon>
@@ -167,6 +163,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

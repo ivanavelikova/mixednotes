@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ba1833ce415b446db99b1f913b18a0d7" Name="Diagram1">
-        <EntityTypeShape EntityType="mixednotesdbModel.list" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mixednotesdbModel.note" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="mixednotesdbModel.task" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="mixednotesdbModel.fk_tasks_lists" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="mixednotesdbModel.list" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="mixednotesdbModel.note" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="mixednotesdbModel.task" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="mixednotesdbModel.fk_tasks_lists" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
