@@ -80,8 +80,8 @@ namespace MixedNotes.Controllers
         {
             view.PrintContentTitle(notesContentTitle);
             view.ClearContent();
-            view.PrintNotes(context.notes.ToList(), 1);
-            view.PrintContent(new List<string>() { "Edit note with ID " });
+            view.PrintNotes(context.notes.ToList());
+            view.PrintContent(new List<string>(), "Edit note with ID ");
 
             int noteID;
 
@@ -112,8 +112,8 @@ namespace MixedNotes.Controllers
         {
             view.PrintContentTitle(notesContentTitle);
             view.ClearContent();
-            view.PrintNotes(context.notes.ToList(), 1);
-            view.PrintContent(new List<string>() { "Delete note with ID " });
+            view.PrintNotes(context.notes.ToList());
+            view.PrintContent(new List<string>(), "Delete note with ID ");
 
             int noteID;
 

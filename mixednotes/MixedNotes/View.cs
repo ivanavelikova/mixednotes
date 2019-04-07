@@ -11,7 +11,7 @@ namespace MixedNotes
     {
         int safeY = 0, safeX = 0;
 
-        public void UpdateMenu(string menuTitle, List<string> menuLines)
+        public void UpdateMenu(string menuTitle, List<string> menuLines, string messageLine = "")
         {
             Console.Clear();
 
@@ -27,7 +27,8 @@ namespace MixedNotes
             safeY = 2;
 
             Separator(longestMenuLineLenght + 1);
-            Console.SetCursorPosition(longestMenuLineLenght + 3, 2);
+            Console.SetCursorPosition(safeX, safeY);
+            Console.Write(messageLine);
         }
 
         private void Separator(int offset)
@@ -60,41 +61,59 @@ namespace MixedNotes
         public void PrintContentTitle(string title)
         {
             Console.SetCursorPosition(safeX, 0);
+            Console.Write(new string(' ', Console.WindowWidth - safeX));
+            Console.SetCursorPosition(safeX, 0);
             Console.Write(title);
         }
 
-        public void PrintContent(List<string> contentLines, int additionalYOffset = 0)
+        public void PrintContent(List<string> contentLines, string messageLine = "")
         {
             for (int i = 0; i < contentLines.Count; i++)
             {
-                Console.SetCursorPosition(safeX, i + safeY + additionalYOffset);
+                Console.SetCursorPosition(safeX, i + safeY);
                 Console.Write(contentLines[i]);
             }
+
+            Console.Write(messageLine);
         }
 
-        public void PrintLists(List<list> lists, int additionalYOffset = 0)
+        //TODO: Finish
+        public void PrintLists(List<list> lists, List<task> tasks)
         {
-            for (int i = 0; i < lists.Count; i++)
+            for (int i = 0; i < lists.Count + tasks.Count + 1; i++)
             {
-                Console.SetCursorPosition(safeX, i + safeY + additionalYOffset);
+                Console.SetCursorPosition(safeX, i + safeY);
+                Console.Write(string.Format("{0,-6} {1,-14}" + Environment.NewLine, lists[i].list_id, lists[i].title));
 
-                Console.Write(string.Format("{0,-6} {1,-9}" + Environment.NewLine, lists[i].list_id, lists[i].title));
+                if (tasks.Where(task => task.list_id == lists[i].list_id).Count() != 0)
+                {
+                    foreach (var currentTask in tasks.Where(task => task.list_id == lists[i].list_id))
+                    {
+                        i++;
+                        Console.SetCursorPosition(safeX, i + safeY);
+                        Console.Write(string.Format("{0,-6} {1,-14} {2,-11} {3,-13} {4,0}" + Environment.NewLine, "", "", currentTask.task_id, currentTask.is_done, currentTask.content));
+                    }
+                }
             }
+
+            Console.SetCursorPosition(safeX, safeY + lists.Count);
         }
 
-        public void PrintNotes(List<note> notes, int additionalYOffset = 0)
+        public void PrintNotes(List<note> notes)
         {
             List<string> lines = SplitNoteLines(GenerateNoteString(notes), Console.WindowWidth - safeX - 1);
-            PrintContent(lines, additionalYOffset);
+            PrintContent(lines);
         }
 
-        private string GenerateNoteString(List<note> notes, int additionalYOffset = 0)
+        private string GenerateNoteString(List<note> notes)
         {
             string noteString = "";
+
             for (int i = 0; i < notes.Count; i++)
             {
                 noteString = noteString + (string.Format("{0,-4} {1,0}" + Environment.NewLine, notes[i].note_id, notes[i].content));
             }
+
             return noteString;
         }
 
@@ -103,6 +122,7 @@ namespace MixedNotes
             List<string> lines = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
 
             int count = lines.Count;
+
             for (int i = 0; i < count; i++)
             {
                 if (lines[i].Length > maxLength)
