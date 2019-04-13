@@ -17,7 +17,7 @@ namespace MixedNotes.Controllers
         static List<string> mainMenuOptions = new List<string>() { " 1. Open TODO lists.", " 2. Open notes.", " 3. Exit." };
 
         /// <summary>
-        /// Defines main controller.
+        /// Defines the main controller.
         /// </summary>
         public MainController()
         {
@@ -26,11 +26,11 @@ namespace MixedNotes.Controllers
             listsController = new ListsController(view, context);
             notesController = new NotesController(view, context);
         }
-        
+
         /// <summary>
-        /// 
+        /// Displays main menu tab.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns controller information or exits program according to input key.</returns>
         public int LogicLoop()
         {
             try
@@ -39,7 +39,9 @@ namespace MixedNotes.Controllers
 
                 while (true)
                 {
+                    // Displays main menu title and options.
                     view.UpdateMenu(mainMenuTitle, mainMenuOptions, "Select option ");
+                    // Takes input key from user.
                     inputKey = view.ReadKey();
 
                     switch (inputKey)

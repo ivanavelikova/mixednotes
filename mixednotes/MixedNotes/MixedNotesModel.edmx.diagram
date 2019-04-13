@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ba1833ce415b446db99b1f913b18a0d7" Name="Diagram1">
+      <Diagram DiagramId="ba1833ce415b446db99b1f913b18a0d7" Name="Diagram1" ZoomLevel="150">
         <EntityTypeShape EntityType="mixednotesdbModel.list" Width="1.5" PointX="0.75" PointY="1.125" />
         <EntityTypeShape EntityType="mixednotesdbModel.note" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="mixednotesdbModel.task" Width="1.5" PointX="3" PointY="0.875" />

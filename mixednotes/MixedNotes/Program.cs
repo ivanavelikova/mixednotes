@@ -12,29 +12,29 @@ namespace MixedNotes
         /// <summary>
         /// Defines the entry point of the application.
         /// </summary>
-        static void Main(string[] args)
+        static void Main()
         {
-            //Initializes the color settings.
-            ColorSettings();
-            //Creates main controller.
+            // Initializes the color settings.
+            InitializeWindow();
+            // Creates main controller.
             MainController mainController = new MainController();
-            //Exits the application.
+            // Exits the application.
             Environment.Exit(mainController.LogicLoop());
         }
 
         /// <summary>
-        /// Initializes the color settings.
+        /// Initializes the color settings for the console.
         /// </summary>
-        private static void ColorSettings()
+        private static void InitializeWindow()
         {
-            //Changes the console colors.
-            Console.BackgroundColor = ConsoleColor.Gray;
-            Console.ForegroundColor = ConsoleColor.Black;
+            // Changes the console colors.
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Gray;
 
-            //Clears the console window.
+            // Clears the console window.
             Console.Clear();
 
-            //Changes the console title.
+            // Changes the console title.
             Console.Title = "MixedNotes";
         }
     }

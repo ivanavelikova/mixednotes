@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     task_id		INT			NOT NULL AUTO_INCREMENT,
     list_id		INT			NOT NULL,
     content		TINYTEXT	NOT NULL,
-	is_done		BOOLEAN		NULL,
+	is_done		BOOLEAN		NOT NULL DEFAULT 0,
 		CONSTRAINT fk_tasks_lists
 		FOREIGN KEY (list_id)
 		REFERENCES lists (list_id)

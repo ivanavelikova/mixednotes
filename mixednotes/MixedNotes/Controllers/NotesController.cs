@@ -15,12 +15,18 @@ namespace MixedNotes.Controllers
         static List<string> mainMenuOptions = new List<string>() { " 1. Create a new note.", " 2. Edit a note.", " 3. Delete a note.", " 4. Go back." };
         static string notesContentTitle = string.Format("{0,-4} {1,0}" + Environment.NewLine, "ID", "Content");
 
+        /// <summary>
+        /// Defines the notes controller.
+        /// </summary>
         public NotesController(View view, mixednotesdbEntities context)
         {
             this.view = view;
             this.context = context;
         }
 
+        /// <summary>
+        /// Displays notes menu tab.
+        /// </summary>
         public void LogicLoop()
         {
             try
@@ -58,6 +64,9 @@ namespace MixedNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Adds a note to the database.
+        /// </summary>
         public void AddNote()
         {
             view.PrintContentTitle("Adding note...");
@@ -76,6 +85,9 @@ namespace MixedNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Edits a note from the database.
+        /// </summary>
         public void EditNote()
         {
             view.PrintContentTitle(notesContentTitle);
@@ -108,6 +120,9 @@ namespace MixedNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes note from the database.
+        /// </summary>
         public void DeleteNote()
         {
             view.PrintContentTitle(notesContentTitle);
